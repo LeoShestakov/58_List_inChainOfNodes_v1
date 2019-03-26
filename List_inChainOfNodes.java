@@ -17,16 +17,16 @@ public class List_inChainOfNodes{
     public int size() {
 		int filledElements;
 		Node nextNode = headReference;
-		for (filledElements = 0; nextNode != null; filledElements++) 
+		for (filledElements = 0; nextNode != null; filledElements++)
 			nextNode = nextNode.getReferenceToNextNode();
 		return filledElements;
     }
 
-    
+
      /**
        @return a string representation of this list,
        format:
-           # elements [element0,element1,element2,] 
+           # elements [element0,element1,element2,]
       */
     public String toString() {
 		String ans = "[";
@@ -38,8 +38,8 @@ public class List_inChainOfNodes{
 		ans += "]";
 		return ans;
     }
-    
-    
+
+
     /**
       Append @value to the head of this list.
 
@@ -51,7 +51,7 @@ public class List_inChainOfNodes{
 		headReference.setReferenceToNextNode(oldHead);
 		return true;
     }
-	
+
 	public Object set(int index, Object newValue) {
         Node nextNode = headReference;
 		Node referenceNode = headReference;
@@ -63,32 +63,30 @@ public class List_inChainOfNodes{
 		nextNode = new Node(newValue, referenceNode);
 		return ans;
 	}
-	
+
 	public Object get(int index) {
 		Node nextNode = headReference;
-		for (int i = index; i > 0; i--) 
+		for (int i = index; i > 0; i--)
 			nextNode = nextNode.getReferenceToNextNode();
 		return nextNode.getCargoReference();
     }
-	
+
 	public void add(int index, Object value) {
 		Node nextNode = headReference;
-		if (index == size()) {
-			for (int i = index; i > 0; i--) 
-				nextNode = nextNode.getReferenceToNextNode();
-			nextNode.setReferenceToNextNode(new Node(value));
+		if (index == 0) {
+			addAsHead(value);
 		}
 		else {
-			for (int i = index; i > 1; i--) 
+			for (int i = index; i > 1; i--)
 				nextNode = nextNode.getReferenceToNextNode();
 			Node oldRef = nextNode.getReferenceToNextNode();
 			nextNode.setReferenceToNextNode(new Node(value, oldRef));
 		}
 	}
-	
+
 	public Object remove(int index) {
 		Node nextNode = headReference;
-		for (int i = index; i > 1; i--) 
+		for (int i = index; i > 1; i--)
 			nextNode = nextNode.getReferenceToNextNode();
 		Node oldRef = nextNode.getReferenceToNextNode();
 		nextNode.setReferenceToNextNode(nextNode.getReferenceToNextNode().getReferenceToNextNode());
