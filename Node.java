@@ -12,6 +12,9 @@ public class Node {
     /**
       Construct an instance
      */
+	public Node() {
+	}
+	
     public Node( Object cargoReference) {
 		this.cargoReference = cargoReference;
     }

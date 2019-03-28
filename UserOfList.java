@@ -1,57 +1,57 @@
 /**
- Test list features.
+ Test list features (started with work by Mr. Holmes)
  */
 public class UserOfList {
-  public static void main( String[] args ) {
+  public static void main(String[] args ) {
     List_inChainOfNodes list = new List_inChainOfNodes();
 
     System.out.println( "number of elements: " + list.size() );
     System.out.println( "empty list:" + list);
+	System.out.println();
 
-    /* Populate the list with elements, but with a small enough
-       number that we expect no invocation of expand().
-    */
+    // Populate the list with elements
     int i = 0;
     for( ; i < 5; i++ ) {
-      list.add(list.size(),-i); // differs from index, but similar
-      System.out.println( "number of elements: " + list.size() );
+		list.add(list.size(),-i); // differs from index, but similar
+		System.out.println( "number of elements: " + list.size() );
+		System.out.println(list);
+		System.out.println();
     }
     
     // New additions utilizing Object type
     list.add(list.size(),"dog");
-    list.add(list.size(), true);
-    list.add(list.size(),11.1);
+    list.add(0, true);
+    list.add(1, 11.1);
     
     System.out.println("initial population of " + list.size() + " elements:");
     System.out.println( list);
 
-    // Add enough elements that expansion is expected
+    // Add more elements
     for( ; i < 15; i++ ) {
-      if( i == 10) System.out.println( "expansion expected");
-      list.add(list.size(), -i);
-      System.out.println( "number of elements: " + list.size() );
+		list.add(list.size(), -i);
+		System.out.println( "number of elements: " + list.size() );
     }
     System.out.println("result of second population: " + list.size() + " elements:");
     System.out.println( list);
 
     // Trust no one.
     for( ; i < 35; i++ )
-    list.add(list.size(), -i);
-    System.out.println("after second expansion: " + list.size() + " elements:");
+		list.add(list.size(), -i);
+    System.out.println("after third population: " + list.size() + " elements:");
     System.out.println( list);
 	
     // test accessor
     System.out.println( "sample elements from list:");
     for(int elemIndex = 1; elemIndex < list.size(); elemIndex *= 2 ) {
-        System.out.println("element " + elemIndex + ": "
+		System.out.println("element " + elemIndex + ": "
                            + list.get( elemIndex)
                            );
     }
 	
 	// test set
-    setTest(list, 8, "woof");
+    setTest(list, 0, "woof");
     setTest(list, 16, "ice cream");
-    System.out.println();
+    System.out.println("LOOK ABOVE");
 	
 	// test adding at a specified position
     addAtTest(list, 0, "first"); // beginning of the list
@@ -59,12 +59,13 @@ public class UserOfList {
     // end of the list using the new add method
     addAtTest(list, list.size(), false);
 
-    addAtTest(list, 2, 22.2); // middle of a small list
+	// middle of a small list
+    addAtTest(list, 2, 22.2); 
 
-    // force an expansion
-	addAtTest(list, 2, 23);
-	addAtTest(list, 2, 23);
-	addAtTest(list, 2, 23);
+	// more tests
+	addAtTest(list, 0, 23);
+	addAtTest(list, 10, 23);
+	addAtTest(list, list.size(), "first");
 	
 	// test removing an element
     System.out.println("removing value " + list.remove( 6)

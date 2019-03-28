@@ -53,14 +53,23 @@ public class List_inChainOfNodes{
     }
 
 	public Object set(int index, Object newValue) {
-        Node nextNode = headReference;
-		Node referenceNode = headReference;
-		for (int i = index; i > 0; i--) {
-			nextNode = nextNode.getReferenceToNextNode();
-			referenceNode = nextNode.getReferenceToNextNode();
+		Object ans;
+		if (index == 0) {
+			addAsHead(newValue);
+			ans = get(1);
+			remove(1);
+			return ans;
 		}
-		Object ans = nextNode.getCargoReference();
+        Node nextNode = headReference;
+		Node priorNode = nextNode;
+		for (int i = index; i > 0; i--) {
+			priorNode = nextNode;
+			nextNode = nextNode.getReferenceToNextNode();
+		}
+		Node referenceNode = nextNode.getReferenceToNextNode();
+		ans = nextNode.getCargoReference();
 		nextNode = new Node(newValue, referenceNode);
+		priorNode.setReferenceToNextNode(nextNode);
 		return ans;
 	}
 
@@ -72,11 +81,11 @@ public class List_inChainOfNodes{
     }
 
 	public void add(int index, Object value) {
-		Node nextNode = headReference;
 		if (index == 0) {
 			addAsHead(value);
 		}
 		else {
+			Node nextNode = headReference;
 			for (int i = index; i > 1; i--)
 				nextNode = nextNode.getReferenceToNextNode();
 			Node oldRef = nextNode.getReferenceToNextNode();
